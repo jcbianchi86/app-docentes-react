@@ -9,7 +9,8 @@ export const datosDocentes = [
         "Álgebra I",
         "La enseñanza de la matemática con TIC",
         "Modelización Matemática"
-      ]
+      ],
+      imagenUrl: "https://img.freepik.com/vector-premium/avatar-hombre-barba-foto-perfil-masculina-generica_53562-20202.jpg?w=2000"
     },
     {
       id: 2,
@@ -18,7 +19,8 @@ export const datosDocentes = [
       unidades: [
         "Campo de la Práctica Docente",
         "Didáctica de la Matemática"
-      ]
+      ],
+      imagenUrl: "https://i.pravatar.cc/150?img=78"
     },
     {
       id: 3,
@@ -27,7 +29,8 @@ export const datosDocentes = [
       unidades: [
         "Ciencias Naturales",
         "Didáctica de la Biología"
-      ]
+      ],
+      imagenUrl: "https://i.pravatar.cc/150?img=18"
     },
     {
       id: 4,
@@ -36,6 +39,7 @@ export const datosDocentes = [
       unidades: [
         "Matemática y Geometría",
         "Didáctica de la Astrofísica"
-      ]
+      ],
+      imagenUrl: "https://i.pravatar.cc/150?img=08"
     }
 ]
