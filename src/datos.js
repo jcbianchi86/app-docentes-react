@@ -28,5 +28,14 @@ export const datosDocentes = [
         "Ciencias Naturales",
         "Didáctica de la Biología"
       ]
+    },
+    {
+      id: 4,
+      nombre: "Guillermo Acevedo",
+      cargo: "Profesor de Físico-Química",
+      unidades: [
+        "Matemática y Geometría",
+        "Didáctica de la Astrofísica"
+      ]
     }
 ]
