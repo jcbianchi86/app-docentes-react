@@ -1,44 +1,60 @@
-// Archivo: App.jsx
+// Archivo: App.jsx (Modificado para la búsqueda)
 
-import React, { useState, useEffect } from 'react'; // 👈 Importamos useEffect
+import React, { useState, useEffect } from 'react';
 import DocenteCard from './DocenteCard'; 
-import { datosDocentes } from './datos'; // 👈 Importamos la lista simulada
+import { datosDocentes } from './datos'; 
+// ... (Otras importaciones)
 
 function App() {
-  // 1. Estado para guardar la lista. Arranca como un array vacío ([]).
   const [docentes, setDocentes] = useState([]);
-  const [cargando, setCargando] = useState(true); // Estado para mostrar un mensaje mientras carga
-
-  // 2. El Hook useEffect:
+  const [cargando, setCargando] = useState(true);
+  
+  // 1. Nuevo Estado para la Búsqueda:
+  const [textoBusqueda, setTextoBusqueda] = useState(''); 
+  
+  // (El useEffect sigue igual, cargando los datos con el setTimeout...)
   useEffect(() => {
-    // Acá simulamos la demora que tiene un servidor para responder (3 segundos)
     setTimeout(() => {
-        
-        // 3. Una vez que "llegan los datos", actualizamos el estado:
         setDocentes(datosDocentes); 
-        setCargando(false); // Terminó de cargar
-        
-    }, 3000); // 3000 milisegundos = 3 segundos
-
-    // El array vacío ([]) al final es CLAVE: le dice a React 
-    // que este código se ejecute UNA SOLA VEZ, cuando el componente se monta.
+        setCargando(false); 
+    }, 3000); 
   }, []); 
 
-  // --- El Renderizado (lo que se ve) ---
+  // 2. Función para manejar el cambio en el campo de texto
+  const manejarBusqueda = (evento) => {
+    // Tomamos el valor del campo y actualizamos el estado 'textoBusqueda'
+    setTextoBusqueda(evento.target.value);
+  };
+  
+  // 3. Lógica de Filtrado:
+  // Filtramos la lista de docentes basándonos en el estado 'textoBusqueda'
+  const docentesFiltrados = docentes.filter((docente) => {
+    // Pasamos el nombre del docente y el texto de búsqueda a minúsculas
+    // para que la búsqueda no distinga mayúsculas/minúsculas.
+    return docente.nombre.toLowerCase().includes(textoBusqueda.toLowerCase());
+  });
 
+
+  // --- El Renderizado ---
   return (
     <div className="App">
-      <h2>Listado de Docentes del Instituto</h2>
+      <h2>Listado de Docentes del Instituto (Vista de Vicerrectoría)</h2>
       
-      {/* 4. Renderizado condicional: Mostramos el mensaje de carga */}
+      {/* 4. El Campo de Búsqueda (Input) */}
+      <input
+        type="text"
+        placeholder="Buscar por nombre..."
+        value={textoBusqueda} // Conectamos el valor del input al estado
+        onChange={manejarBusqueda} // Llamamos a la función al escribir
+        style={{ padding: '10px', width: '300px', marginBottom: '20px', borderRadius: '5px', border: '1px solid #ccc' }}
+      />
+
       {cargando ? (
-        <p>
-          Cargando listado de docentes... por favor aguarde!
-        </p>
+        <p>Cargando listado de docentes... ¡Casi estamos!</p>
       ) : (
-        // 5. Cuando ya NO está cargando, mostramos la lista (usamos 'docentes' del estado)
+        // 5. Usamos la lista FILTRADA para el .map()
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {docentes.map((docente) => (
+          {docentesFiltrados.map((docente) => (
             <DocenteCard 
               key={docente.id}
               nombre={docente.nombre} 
